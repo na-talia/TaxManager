@@ -4,42 +4,42 @@ var taxList = new List<TaxRecord>
         Municipality = "Copenhagen",
         FromDate = new DateOnly(2025, 01, 01),
         ToDate = new DateOnly(2025, 12, 31),
-        TaxRate = 0.2,
+        TaxRate = 0.2M,
         TaxType = "Yearly"
     },
     new() {
         Municipality = "Copenhagen",
         FromDate = new DateOnly(2025, 05, 01),
         ToDate = new DateOnly(2025, 05, 31),
-        TaxRate = 0.4,
+        TaxRate = 0.4M,
         TaxType = "Monthly"
     },
     new() {
         Municipality = "Copenhagen",
         FromDate = new DateOnly(2025, 01, 01),
         ToDate = new DateOnly(2025, 01, 01),
-        TaxRate = 0.1,
+        TaxRate = 0.1M,
         TaxType = "Daily"
     },
     new() {
         Municipality = "Copenhagen",
         FromDate = new DateOnly(2025, 12, 25),
         ToDate = new DateOnly(2025, 12, 25),
-        TaxRate = 0.1,
+        TaxRate = 0.1M,
         TaxType = "Daily"
     }
 };
 
 Console.Write("Input municipality: ");
-var municipality = Console.ReadLine();
+var municipality = Console.ReadLine()?.Trim();
 
 Console.Write("Input date (yyyy-MM-dd): ");
-var dateInput = Console.ReadLine();
+var dateInput = Console.ReadLine()?.Trim();
 
 if (!string.IsNullOrWhiteSpace(municipality) && DateOnly.TryParse(dateInput, out var parsedDate))
 {
     var taxRecord = taxList.FirstOrDefault(record =>
-        record.Municipality == municipality && 
+        record.Municipality.Equals(municipality, StringComparison.OrdinalIgnoreCase) &&
         parsedDate >= record.FromDate &&
         parsedDate <= record.ToDate
     );
