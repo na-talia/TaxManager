@@ -30,12 +30,36 @@ var taxList = new List<TaxRecord>
     }
 };
 
-foreach (var tax in taxList)
-{
-    Console.WriteLine($"{tax.Municipality} from {tax.FromDate} to {tax.ToDate} has a {tax.TaxType} tax of {tax.TaxRate}.");
-}
+Console.Write("Input municipality: ");
+var municipality = Console.ReadLine();
 
-if (!taxList.Any(record => record.TaxType == "Weekly"))
+Console.Write("Input date (yyyy-MM-dd): ");
+var dateInput = Console.ReadLine();
+
+if (!string.IsNullOrWhiteSpace(municipality) && DateOnly.TryParse(dateInput, out var parsedDate))
 {
-    Console.WriteLine("No weekly taxes scheduled.");
+    var taxRecord = taxList.FirstOrDefault(record =>
+        record.Municipality == municipality && 
+        parsedDate >= record.FromDate &&
+        parsedDate <= record.ToDate
+    );
+
+    if (taxRecord != null)
+    {
+        Console.WriteLine($"Tax rate for {municipality} on {parsedDate} is {taxRecord.TaxRate}");
+    }
+    else
+    {
+        Console.WriteLine("No tax rate is available for the specified date.");
+
+
+       /*  if (!taxList.Any(record => record.TaxType == "Weekly"))
+        {
+            Console.WriteLine("No weekly taxes scheduled.");
+        } */
+    }
+}
+else
+{
+    Console.WriteLine("Invalid format. Expected a valid municipality name and a date in yyyy-mm-dd format.");
 }
