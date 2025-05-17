@@ -33,16 +33,26 @@ var taxList = new List<TaxRecord>
 Console.Write("Input municipality: ");
 var municipality = Console.ReadLine()?.Trim();
 
-Console.Write("Input date (yyyy-MM-dd): ");
+Console.Write("Input date (YYYY-MM-DD): ");
 var dateInput = Console.ReadLine()?.Trim();
 
 if (!string.IsNullOrWhiteSpace(municipality) && DateOnly.TryParse(dateInput, out var parsedDate))
 {
-    var taxRecord = taxList.FirstOrDefault(record =>
-        record.Municipality.Equals(municipality, StringComparison.OrdinalIgnoreCase) &&
-        parsedDate >= record.FromDate &&
-        parsedDate <= record.ToDate
-    );
+
+    // Filter tax records for the given municipality and date
+    var filteredRecords = taxList.Where(record =>
+    record.Municipality.Equals(municipality, StringComparison.OrdinalIgnoreCase) &&
+    parsedDate >= record.FromDate &&
+    parsedDate <= record.ToDate
+).ToList();
+
+    // Sort from highest to lowest priority based on index
+    string[] taxTypePriority = ["Daily", "Weekly", "Monthly", "Yearly"];
+
+    // Select the first matching tax record based on priority
+    var taxRecord = filteredRecords
+    .OrderBy(record => Array.IndexOf(taxTypePriority, record.TaxType))
+    .FirstOrDefault();
 
     if (taxRecord != null)
     {
@@ -61,5 +71,5 @@ if (!string.IsNullOrWhiteSpace(municipality) && DateOnly.TryParse(dateInput, out
 }
 else
 {
-    Console.WriteLine("Invalid format. Expected a valid municipality name and a date in yyyy-mm-dd format.");
+    Console.WriteLine("Invalid format. Expected a valid municipality name and a date in YYYY-MM-DD format.");
 }
