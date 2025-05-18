@@ -20,19 +20,23 @@ It allows users to retrieve and add taxes applied in different municipalities fo
 
 1. Navigate to the app folder:
 
+```
 cd src
 dotnet run
+```
 
 2. Choose an action:
 
-1 – Add a new tax record
-2 – Retrieve a tax record
-q – Quit
+`1` – Add a new tax record  
+`2` – Retrieve a tax record  
+`q` – Quit  
 
-## How to Run the App
+## How to Run the Test
 
+```
 cd Tests
 dotnet test
+```
 
 ## Notes
 
