@@ -2,7 +2,9 @@ public class TaxHandler(List<TaxRecord> taxList)
 {
     private readonly List<TaxRecord> _taxList = taxList;
 
-    // Asks the user to input a new tax record and adds it to list
+    /* Asks the user to input a new tax record and adds it to list.
+       Assumption: Only basic input checks added, no complex validation like overlapping dates. */
+
     public void AddTaxRecord()
     {
         Console.Write("Enter municipality: ");
