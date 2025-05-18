@@ -1,5 +1,7 @@
 public static class InitialTaxData
 {
+    /* Assumption: Using hardcoded tax records.
+       This can be replaced with a database in the future. */
     public static List<TaxRecord> GetDefaultTaxRecords() =>
     [
         new()

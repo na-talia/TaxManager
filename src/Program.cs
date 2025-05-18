@@ -1,6 +1,9 @@
 var taxList = InitialTaxData.GetDefaultTaxRecords();
 var handler = new TaxHandler(taxList);
 
+/* Assumption: Console app will run until user quits manually.
+   Data is kept in memory during runtime only. */
+
 while (true)
 {
     Console.Write(
